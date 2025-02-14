@@ -28,6 +28,7 @@ jobs:
         args: --gc --minify
       env:
         GITHUB_TOKEN: ${{ secrets.MY_PERSONAL_TOKEN }}
+        GITHUB_BRANCH: ${{ variables.GITHUB_BRANCH }}
 ```
 
 ## On Tokens
@@ -38,3 +39,8 @@ I opened a support ticket about this, the response was:
 
 > ... GitHub Pages site builds aren’t able to be triggered by bot users or integrations that push to your repository. This is to prevent excessive resource usage and abuse of GitHub Pages systems.
 > You can work around this but it will require your integration to push your code back to GitHub using a Personal Access Token created by your account.
+
+## Branch Published
+
+If you don't want to use gh-pages (e.g., you're using Cloudfront or S3 or
+something) you can indicate the branch you want to publish assets to.

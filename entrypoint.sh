@@ -14,12 +14,17 @@ hugo "$@"
 echo "Setting up git"
 [ -z "${GITHUB_TOKEN}" ] && \
   (echo "ERROR: Missing GITHUB_TOKEN." ; exit 1)
+
+# TODO - Default branch to gh-pages.
+[ -z "${GITHUB_BRANCH}" ] && \
+  (echo "ERROR: Missing GITHUB_BRANCH." ; exit 1)
+
 git config --global user.name "${GITHUB_ACTOR}"
 git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 echo "machine github.com login ${GITHUB_ACTOR} password ${GITHUB_TOKEN}" > ~/.netrc
 
 echo "cloning"
-git clone --depth=1 --single-branch --branch gh-pages https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git /tmp/gh-pages
+git clone --depth=1 --single-branch --branch ${GITHUB_BRANCH} https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git /tmp/gh-pages
 
 echo "copying"
 rm -rf /tmp/gh-pages/*
